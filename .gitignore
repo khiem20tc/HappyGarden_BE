@@ -1,0 +1,6 @@
+node_modules
+db.json
+.vscode
+test.js
+README.md
+.env

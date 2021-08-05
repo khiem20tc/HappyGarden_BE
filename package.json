@@ -1,0 +1,49 @@
+{
+  "name": "temple-engines",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --inspect ./bin/www",
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.1",
+    "archiver": "^5.2.0",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "bootstrap-icons": "^1.4.0",
+    "cloudconvert": "^2.2.1",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "js-datepicker": "^5.11.0",
+    "jsdom": "^16.2.2",
+    "lowdb": "^1.0.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.11.18",
+    "mqtt": "^4.2.6",
+    "multer": "^1.4.2",
+    "node-cron": "^2.0.3",
+    "pug": "^2.0.4",
+    "sharp": "^0.27.2",
+    "short-id": "0.1.0-1",
+    "shortid": "^2.2.15",
+    "zip-local": "^0.3.4",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "debug": "~2.6.9"
+  },
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not IE_Mob 11",
+    "maintained node versions"
+  ]
+}
