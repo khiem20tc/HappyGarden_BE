@@ -58,7 +58,7 @@ app.use('/device',deviceRouter)
 app.use('/schedule', scheduleRouter)
 
 autoRespone.autoRespone(process.env.USER_NAME1, process.env.PASSWORD1 , process.env.SUBCRIBE1, true); //lock publish BBC
-// autoRespone.autoRespone(process.env.USER_NAME2, process.env.PASSWORD2 , process.env.SUBCRIBE2, false);
+autoRespone.autoRespone(process.env.USER_NAME2, process.env.PASSWORD2 , process.env.SUBCRIBE2, false);
 
 
 app.use(function(req, res, next){

@@ -2,7 +2,7 @@ var schedule = require("./fetchSchedule")
 var update_schedule = require('./event').updateSchedule
 var publishEvent = require('./event').publishEvent
 var node_cron = require('node-cron')
-
+const deviceModel = require("../models/device")
 
 module.exports.autoRespone = async function(
     userName , password , clientSubcribe, is_publish = false
@@ -19,7 +19,8 @@ module.exports.autoRespone = async function(
         if (is_publish == false) return
         else
         {
-            client.publish("CSE_BBC1/feeds/bk-iot-relay" , JSON.stringify(text))
+            //client.publish("CSE_BBC1/feeds/bk-iot-relay" , JSON.stringify(text))
+            client.publish("dinhkhanh412/feeds/bk-iot-relay" , JSON.stringify(text))
             console.log("publish",text , JSON.stringify(type))
         }
     })
@@ -137,14 +138,17 @@ module.exports.autoRespone = async function(
                         }
                     }
                     try{
-                    
-                    
+                        var light_ = await deviceModel.findOne({id : 13})
+                        var soil_ = await deviceModel.findOne({id : 9})
+                        //console.log(light_)
+                        //console.log(soil_)
+
                         var trigger
                         if (i.name == "LIGHT"){
-                            trigger = validate(light , i)
+                            trigger = validate(light_ , i)
                         } else if (i.name == "SOIL")
                         {
-                            trigger = validate(soil , i)
+                            trigger = validate(soil_ , i)
                         }
                             
                         else if (i.name == "TEMP-HUMID") 
