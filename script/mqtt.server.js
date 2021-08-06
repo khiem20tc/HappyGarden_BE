@@ -20,7 +20,13 @@ module.exports.autoRespone = async function(
         else
         {
             //client.publish("CSE_BBC1/feeds/bk-iot-relay" , JSON.stringify(text))
+            console.log(text.name)
+            if(text.name=="RELAY"){
             client.publish("dinhkhanh412/feeds/bk-iot-relay" , JSON.stringify(text))
+            }
+            else if(text.name=="LED"){
+                client.publish("dinhkhanh412/feeds/bk-iot-led" , JSON.stringify(text))
+            }
             console.log("publish",text , JSON.stringify(type))
         }
     })
@@ -121,6 +127,7 @@ module.exports.autoRespone = async function(
                             Date.parse("01/01/2021 " +i.hof) <= Date.parse("01/01/2021 " +currentTime)
                         )
                         {
+                            if(i.name=="SOIL"){
                             try{
                                 
                             
@@ -134,6 +141,23 @@ module.exports.autoRespone = async function(
                             continue
                         }catch(e){
                             continue
+                        }
+                        }
+                        if(i.name=="LIGHT"){
+                            try{
+                                
+                            
+                            //if (device.data == "1") {
+
+                                publishEvent.emit("publish", {"id": "1", "name": "LED", "data": `${0}`, "unit": ""})
+                        
+                                // await schedule.updateDevice(x.userId, i.id , trigger, )
+                                await schedule.updateLog(x.userId , currentDate, JSON.stringify({"text":`system turn off the led` , "time":currentTime}))
+                            //}
+                            continue
+                        }catch(e){
+                            continue
+                        }
                         }
                         }
                     }
@@ -165,6 +189,8 @@ module.exports.autoRespone = async function(
                        
                         
                         if ( parseInt(device.data) == (trigger?1:0)) continue
+                        console.log("i_name",i.name)
+                        if(i.name=="SOIL"){
                         var text = {"id": "11", "name": "RELAY", "data": `${trigger?1:0}`, "unit": ""} 
                             
                         // console.log(client_topic , JSON.stringify(text))
@@ -173,7 +199,18 @@ module.exports.autoRespone = async function(
                         publishEvent.emit("publish", text, i)
                         // await schedule.updateDevice(x.userId, i.id , trigger)
                         await schedule.updateLog(x.userId , currentDate, {"text":`system turn ${trigger? "on":"off"} the pump`, "time":currentTime})
-                    
+                        }
+                        else if(i.name=="LIGHT"){
+                            //console.log("ONNNNNNNNNNN")
+                            var text = {"id": "1", "name": "LED", "data": `${trigger?1:0}`, "unit": ""} 
+                                
+                            // console.log(client_topic , JSON.stringify(text))
+                            // client.publish("CSE_BBC1/feeds/bk-iot-relay" , JSON.stringify(text))
+                            
+                            publishEvent.emit("publish", text, i)
+                            // await schedule.updateDevice(x.userId, i.id , trigger)
+                            await schedule.updateLog(x.userId , currentDate, {"text":`system turn ${trigger? "on":"off"} the led`, "time":currentTime})
+                            }
                 }
                 catch(er){
                     // console.log(er)
