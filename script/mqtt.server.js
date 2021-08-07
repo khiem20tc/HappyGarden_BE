@@ -3,6 +3,7 @@ var update_schedule = require('./event').updateSchedule
 var publishEvent = require('./event').publishEvent
 var node_cron = require('node-cron')
 const deviceModel = require("../models/device")
+require('dotenv').config();
 
 module.exports.autoRespone = async function(
     userName , password , clientSubcribe, is_publish = false
@@ -22,10 +23,14 @@ module.exports.autoRespone = async function(
             //client.publish("CSE_BBC1/feeds/bk-iot-relay" , JSON.stringify(text))
             console.log(text.name)
             if(text.name=="RELAY"){
-            client.publish("dinhkhanh412/feeds/bk-iot-relay" , JSON.stringify(text))
+            var feed = process.env.USER_NAME1 + "/feeds/bk-iot-relay"
+            // client.publish("dinhkhanh412/feeds/bk-iot-relay" , JSON.stringify(text))
+            client.publish(feed , JSON.stringify(text))
             }
             else if(text.name=="LED"){
-                client.publish("dinhkhanh412/feeds/bk-iot-led" , JSON.stringify(text))
+                var feed = process.env.USER_NAME2 + "/feeds/bk-iot-led"
+                // client.publish("khiem20tc/feeds/bk-iot-led" , JSON.stringify(text))
+                client.publish(feed , JSON.stringify(text))
             }
             console.log("publish",text , JSON.stringify(type))
         }
@@ -201,7 +206,7 @@ module.exports.autoRespone = async function(
                         await schedule.updateLog(x.userId , currentDate, {"text":`system turn ${trigger? "on":"off"} the pump`, "time":currentTime})
                         }
                         else if(i.name=="LIGHT"){
-                            //console.log("ONNNNNNNNNNN")
+                            console.log("ONNNNNNNNNNN")
                             var text = {"id": "1", "name": "LED", "data": `${trigger?1:0}`, "unit": ""} 
                                 
                             // console.log(client_topic , JSON.stringify(text))
